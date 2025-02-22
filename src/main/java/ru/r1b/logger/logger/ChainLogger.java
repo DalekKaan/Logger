@@ -8,9 +8,6 @@ import ru.r1b.logger.formatter.DateTimeLog;
 import java.time.format.DateTimeFormatter;
 
 public class ChainLogger implements Logger {
-    public static final int LEVEL_DEBUG = 10;
-    public static final int LEVEL_INFO = 20;
-    public static final int LEVEL_ERROR = 30;
 
     Channel channel;
     int level = LEVEL_INFO;

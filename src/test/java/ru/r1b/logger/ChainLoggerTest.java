@@ -8,9 +8,9 @@ public class ChainLoggerTest extends LoggerTest {
     Logger getLogger() {
 
         return new ChainLogger(
-                channel,
-                1,
-                new LeveledLog(1)
+                channelMock,
+                Logger.LEVEL_INFO,
+                new LeveledLog(Logger.LEVEL_INFO)
         );
     }
 }

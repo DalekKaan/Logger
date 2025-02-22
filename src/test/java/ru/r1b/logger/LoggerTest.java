@@ -1,28 +1,31 @@
 package ru.r1b.logger;
 
-import org.junit.jupiter.api.AfterEach;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+@RunWith(MockitoJUnitRunner.class)
 abstract class LoggerTest {
 
-    ChannelMock channel = new ChannelMock();
+    @Mock
+    Channel channelMock;
 
-
-    @AfterEach
-    public void tearDown() {
-        channel.reset();
-    }
 
     @Test
     public void log() {
-        getLogger().log("test", 1);
-        assertEquals("[1] test", channel.getOut().toString());
+        String message = "test";
+        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+
+        getLogger().log(message, Logger.LEVEL_INFO);
+
+        Mockito.verify(channelMock).write(argument.capture());
+        assertEquals("[" + Logger.LEVEL_INFO + "] " + message, argument.getValue());
 
     }
 
