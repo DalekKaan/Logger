@@ -11,24 +11,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 abstract class LoggerTest {
 
-    private final PrintStream standardOut = System.out;
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    ChannelMock channel = new ChannelMock();
 
-    @BeforeEach
-    public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
-    }
 
     @AfterEach
     public void tearDown() {
-        System.setOut(standardOut);
+        channel.reset();
     }
 
     @Test
     public void log() {
         getLogger().log("test", 1);
-        assertEquals("[1] test", outputStreamCaptor.toString()
-                .trim());
+        assertEquals("[1] test", channel.getOut().toString());
 
     }
 
