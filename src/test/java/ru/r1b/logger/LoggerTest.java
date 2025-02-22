@@ -1,7 +1,7 @@
 package ru.r1b.logger;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
@@ -15,16 +15,24 @@ abstract class LoggerTest {
 
     @Mock
     Channel channelMock;
+    Logger logger;
+    ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+
+    @Before
+    public void setUp() {
+        logger = getLogger();
+    }
 
 
     @Test
     public void log() {
-        String message = "test";
-        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
 
-        getLogger().log(message, Logger.LEVEL_INFO);
+        String message = "Test";
+
+        logger.log(message, Logger.LEVEL_INFO);
 
         Mockito.verify(channelMock).write(argument.capture());
+
         assertEquals("[" + Logger.LEVEL_INFO + "] " + message, argument.getValue());
 
     }
