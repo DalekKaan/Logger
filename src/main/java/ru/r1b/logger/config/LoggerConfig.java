@@ -6,11 +6,11 @@ import java.util.LinkedList;
 
 public class LoggerConfig implements Config {
     String channel;
-    int level;
+    String level;
     LinkedList<String> formatters;
 
     @Override
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
 

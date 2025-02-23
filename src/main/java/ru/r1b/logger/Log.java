@@ -33,7 +33,7 @@ public class Log {
 
         return new ChainLogger(
                 channel,
-                config.getLevel(),
+                LogLevel.valueOf(config.getLevel()),
                 makeFormatter(config)
         );
     }
@@ -64,7 +64,7 @@ public class Log {
             prev = formatter;
             switch (format) {
                 case "date": formatter = new DateTimeLog(DateTimeFormatter.ISO_LOCAL_DATE_TIME); break;
-                case "level": formatter = new LeveledLog(config.getLevel()); break;
+                case "level": formatter = new LeveledLog(LogLevel.valueOf(config.getLevel())); break;
             }
             if (formatter != null && prev != null) {
                 formatter.setPrev(prev);

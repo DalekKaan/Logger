@@ -29,11 +29,11 @@ abstract class LoggerTest {
 
         String message = "Test";
 
-        logger.log(message, Logger.LEVEL_INFO);
+        logger.log(message, LogLevel.INFO);
 
         Mockito.verify(channelMock).write(argument.capture());
 
-        assertEquals("[" + Logger.LEVEL_INFO + "] " + message, argument.getValue());
+        assertEquals("[" + LogLevel.INFO.getTitle() + "] " + message, argument.getValue());
 
     }
 

@@ -1,15 +1,16 @@
 package ru.r1b.logger.formatter;
 
 import ru.r1b.logger.Formatter;
+import ru.r1b.logger.LogLevel;
 
 public class LeveledLog extends FormattedLog {
-    int level;
+    LogLevel level;
 
-    public LeveledLog(int level) {
+    public LeveledLog(LogLevel level) {
         this.level = level;
     }
 
-    public LeveledLog(int level, Formatter prev) {
+    public LeveledLog(LogLevel level, Formatter prev) {
         super(prev);
         this.level = level;
     }
