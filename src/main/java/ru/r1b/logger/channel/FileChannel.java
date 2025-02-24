@@ -1,8 +1,6 @@
 package ru.r1b.logger.channel;
 
-import ru.r1b.logger.Channel;
-import ru.r1b.logger.Config;
-import ru.r1b.logger.Formatter;
+import ru.r1b.logger.config.ChanelConfig;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -10,7 +8,7 @@ import java.io.Writer;
 public class FileChannel extends LogChannel {
     Writer writer;
 
-    public FileChannel(Config config, Writer writer) {
+    public FileChannel(ChanelConfig config, Writer writer) {
         super(config);
         this.writer = writer;
     }
