@@ -1,0 +1,26 @@
+{
+  "log": [
+    {
+      "level": "info",
+      "chanel": [
+        {
+          "type": "file",
+          "file": "./log.txt"
+        },
+        {
+          "type": "stdout"
+        }
+      ],
+      "formatter": [
+        {
+          "type": "datetime",
+          "format": "Y-m-d"
+        },
+        {
+          "type": "leveled",
+          "format": ""
+        }
+      ] 
+    }
+  ]
+}
