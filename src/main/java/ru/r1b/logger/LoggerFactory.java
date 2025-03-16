@@ -3,9 +3,12 @@ package ru.r1b.logger;
 import ru.r1b.logger.channel.FileChannel;
 import ru.r1b.logger.channel.StdErrChannel;
 import ru.r1b.logger.channel.StdOutChannel;
-import ru.r1b.logger.config.FormatterConfig;
+import ru.r1b.logger.config.formatter.Config;
+import ru.r1b.logger.config.formatter.DateTimeFormatterConfig;
+import ru.r1b.logger.config.formatter.FormatterConfig;
 import ru.r1b.logger.config.LoggerConfig;
 import ru.r1b.logger.config.channel.FileChannelConfig;
+import ru.r1b.logger.config.formatter.LeveledFormatterConfig;
 import ru.r1b.logger.formatter.DateTimeLog;
 import ru.r1b.logger.formatter.LeveledLog;
 import ru.r1b.logger.logger.ChainLogger;
@@ -41,10 +44,20 @@ public class LoggerFactory {
         };
     }
 
-    private static Formatter makeFormatter(FormatterConfig formatterConfig) {
-        return switch (formatterConfig.type()) {
-            case "date" -> new DateTimeLog(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            case "level" -> new LeveledLog(LogLevel.valueOf(formatterConfig.getLevel())); // todo
+    private static Formatter makeFormatter(ru.r1b.logger.config.formatter.Config  formatterConfig) {
+        return switch (formatterConfig.getType()) {
+            case "date" -> {
+                if (!(formatterConfig instanceof DateTimeFormatterConfig dateTimeFormatterConfig)) {
+                    throw new IllegalArgumentException("formatter config must be a DateTimeFormatterConfig");
+                }
+                yield DateTimeLog.make(dateTimeFormatterConfig);
+            }
+            case "level" -> {
+                if (!(formatterConfig instanceof LeveledFormatterConfig leveledFormatterConfig)) {
+                    throw new IllegalArgumentException("formatter config must be a LeveledFormatterConfig");
+                }
+                yield new LeveledLog(LogLevel.valueOf(leveledFormatterConfig.getLevel()));
+            }
             default -> null;
         };
     }
