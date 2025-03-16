@@ -1,5 +1,5 @@
 package ru.r1b.logger;
 
 public interface Logger {
-    public void log(String message, LogLevel level);
+    void log(String message, LogLevel level);
 }

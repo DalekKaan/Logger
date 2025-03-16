@@ -3,9 +3,7 @@ package ru.r1b.logger;
 import ru.r1b.logger.channel.FileChannel;
 import ru.r1b.logger.channel.StdErrChannel;
 import ru.r1b.logger.channel.StdOutChannel;
-import ru.r1b.logger.config.formatter.Config;
 import ru.r1b.logger.config.formatter.DateTimeFormatterConfig;
-import ru.r1b.logger.config.formatter.FormatterConfig;
 import ru.r1b.logger.config.LoggerConfig;
 import ru.r1b.logger.config.channel.FileChannelConfig;
 import ru.r1b.logger.config.formatter.LeveledFormatterConfig;
@@ -13,7 +11,6 @@ import ru.r1b.logger.formatter.DateTimeLog;
 import ru.r1b.logger.formatter.LeveledLog;
 import ru.r1b.logger.logger.ChainLogger;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class LoggerFactory {
