@@ -3,20 +3,19 @@ package ru.r1b.logger;
 import ru.r1b.logger.channel.FileChannel;
 import ru.r1b.logger.channel.StdErrChannel;
 import ru.r1b.logger.channel.StdOutChannel;
-import ru.r1b.logger.config.ChanelConfig;
 import ru.r1b.logger.config.FormatterConfig;
 import ru.r1b.logger.config.LoggerConfig;
+import ru.r1b.logger.config.chanel.FileChanelConfig;
+import ru.r1b.logger.exception.ConfigurationException;
 import ru.r1b.logger.formatter.DateTimeLog;
 import ru.r1b.logger.formatter.LeveledLog;
 import ru.r1b.logger.logger.ChainLogger;
 
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Objects;
 
 public class LoggerFactory {
 
@@ -32,11 +31,16 @@ public class LoggerFactory {
         return new ChainLogger(channels, LogLevel.valueOf(loggerConfig.level()), formatters);
     }
 
-    private static Channel makeChanel(ChanelConfig chanelConfig) {
-        return switch (chanelConfig.type()) {
+    private static Channel makeChanel(ru.r1b.logger.config.chanel.Config chanelConfig) {
+        return switch (chanelConfig.getType()) {
             case Channel.STDOUT -> new StdOutChannel(chanelConfig);
             case Channel.STDERR -> new StdErrChannel(chanelConfig);
-            case Channel.FILE -> new FileChannel(chanelConfig); // todo
+            case Channel.FILE -> {
+                if (!(chanelConfig instanceof FileChanelConfig fileChannelConfig)) {
+                    throw new IllegalArgumentException("chanel config must be a FileChannel");
+                }
+                yield FileChannel.make(fileChannelConfig);
+            }
             default -> null;
         };
     }

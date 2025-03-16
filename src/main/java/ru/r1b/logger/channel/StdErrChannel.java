@@ -1,10 +1,10 @@
 package ru.r1b.logger.channel;
 
-import ru.r1b.logger.config.ChanelConfig;
+import ru.r1b.logger.config.chanel.Config;
 
 public class StdErrChannel extends LogChannel {
 
-    public StdErrChannel(ChanelConfig config) {
+    public StdErrChannel(Config config) {
         super(config);
     }
 

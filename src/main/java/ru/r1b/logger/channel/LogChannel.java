@@ -1,12 +1,12 @@
 package ru.r1b.logger.channel;
 
 import ru.r1b.logger.Channel;
-import ru.r1b.logger.config.ChanelConfig;
+import ru.r1b.logger.config.chanel.Config;
 
 public abstract class LogChannel implements Channel {
-    ChanelConfig config;
+    Config config;
 
-    public LogChannel(ChanelConfig config) {
+    public LogChannel(Config config) {
         this.config = config;
     }
 }

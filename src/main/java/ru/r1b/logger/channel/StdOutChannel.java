@@ -1,10 +1,10 @@
 package ru.r1b.logger.channel;
 
-import ru.r1b.logger.config.ChanelConfig;
+import ru.r1b.logger.config.chanel.Config;
 
 public class StdOutChannel extends LogChannel {
 
-    public StdOutChannel(ChanelConfig config) {
+    public StdOutChannel(Config config) {
         super(config);
     }
 
