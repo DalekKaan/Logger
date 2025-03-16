@@ -1,10 +1,10 @@
-package ru.r1b.logger.config.chanel;
+package ru.r1b.logger.config.channel;
 
-public final class FileChanelConfig implements Config {
-    private final ChanelConfig base;
+public final class FileChannelConfig implements Config {
+    private final ChannelConfig base;
     private final String file;
 
-    public FileChanelConfig(ChanelConfig base, String file) {
+    public FileChannelConfig(ChannelConfig base, String file) {
         this.base = base;
         this.file = file;
     }

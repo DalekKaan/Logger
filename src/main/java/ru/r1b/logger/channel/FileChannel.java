@@ -1,8 +1,7 @@
 package ru.r1b.logger.channel;
 
-import ru.r1b.logger.config.chanel.ChanelConfig;
-import ru.r1b.logger.config.chanel.Config;
-import ru.r1b.logger.config.chanel.FileChanelConfig;
+import ru.r1b.logger.config.channel.Config;
+import ru.r1b.logger.config.channel.FileChannelConfig;
 import ru.r1b.logger.exception.ConfigurationException;
 
 import java.io.File;
@@ -13,7 +12,7 @@ import java.io.Writer;
 public class FileChannel extends LogChannel {
     Writer writer;
 
-    public static FileChannel make(FileChanelConfig config) {
+    public static FileChannel make(FileChannelConfig config) {
         File logFile = new File(config.getFile());
         try {
             logFile.createNewFile();
