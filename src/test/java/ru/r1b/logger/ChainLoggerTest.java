@@ -8,14 +8,20 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class ChainLoggerTest extends LoggerTest {
+
     @Override
     Logger getLogger() {
 
-        return new ChainLogger(
-                (ArrayList<Channel>) Collections.singletonList(channelMock),
-                LogLevel.INFO,
-                (ArrayList<Formatter>) Collections.singletonList((Formatter) new LeveledLog(LogLevel.INFO))
+        ArrayList<Channel> channels = new ArrayList<>();
+        channels.add(channelMock);
 
+        ArrayList<Formatter> formatters = new ArrayList<>();
+        formatters.add((Formatter) new LeveledLog(LogLevel.INFO));
+
+        return new ChainLogger(
+                channels,
+                LogLevel.INFO,
+                formatters
         );
     }
 }
