@@ -1,14 +1,26 @@
 package ru.r1b.logger.channel;
 
-import ru.r1b.logger.Channel;
-import ru.r1b.logger.Config;
-import ru.r1b.logger.Formatter;
+import ru.r1b.logger.config.channel.Config;
+import ru.r1b.logger.config.channel.FileChannelConfig;
+import ru.r1b.logger.exception.ConfigurationException;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 
 public class FileChannel extends LogChannel {
     Writer writer;
+
+    public static FileChannel make(FileChannelConfig config) {
+        File logFile = new File(config.getFile());
+        try {
+            logFile.createNewFile();
+            return new FileChannel(config, new FileWriter(logFile)) ;
+        } catch (IOException e) {
+            throw new ConfigurationException("Could not create log file", e);
+        }
+    }
 
     public FileChannel(Config config, Writer writer) {
         super(config);

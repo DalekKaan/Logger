@@ -7,39 +7,47 @@ import ru.r1b.logger.Logger;
 import ru.r1b.logger.formatter.DateTimeLog;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class ChainLogger implements Logger {
 
-    Channel channel;
+    ArrayList<Channel> channels;
     LogLevel level = LogLevel.INFO;
     ChainLogger next;
-    Formatter formatter;
+    ArrayList<Formatter> formatters = new ArrayList<>();
 
     public LogLevel getLevel() {
         return level;
     }
 
-    public ChainLogger(Channel channel) {
-        this.channel = channel;
-        this.formatter = new DateTimeLog(DateTimeFormatter.ISO_DATE_TIME);
+    public ChainLogger(ArrayList<Channel> channels) {
+        this.channels = channels;
+        this.formatters.add(new DateTimeLog(DateTimeFormatter.ISO_DATE_TIME));
     }
 
-    public ChainLogger(Channel channel, LogLevel level, Formatter formatter) {
-        this.channel = channel;
+    public ChainLogger(ArrayList<Channel> channels, LogLevel level, ArrayList<Formatter> formatters) {
+        this.channels = channels;
         this.level = level;
-        this.formatter = formatter;
+        this.formatters = formatters;
     }
 
-    public ChainLogger(Channel channel, LogLevel level, ChainLogger next, Formatter formatter) {
-        this.channel = channel;
+    public ChainLogger(ArrayList<Channel> channels, LogLevel level, ChainLogger next, ArrayList<Formatter> formatters) {
+        this.channels = channels;
         this.level = level;
         this.next = next;
-        this.formatter = formatter;
+        this.formatters = formatters;
     }
 
     public void log(String message, LogLevel level) {
-        if (this.level.getLevel() <= level.getLevel()) {
-            channel.write(formatter.format(message));
+        if (this.level.getLevel() > level.getLevel()) {
+            return;
+        }
+        // todo: deal with loops
+        for (Formatter formatter : formatters) {
+            message = formatter.format(message);
+        }
+        for (Channel c : channels) {
+            c.write(message);
         }
         if (next != null) {
             next.log(message, level);
