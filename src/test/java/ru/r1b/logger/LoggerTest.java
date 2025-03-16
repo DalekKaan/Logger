@@ -1,16 +1,15 @@
 package ru.r1b.logger;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 abstract class LoggerTest {
 
     @Mock
@@ -18,8 +17,9 @@ abstract class LoggerTest {
     Logger logger;
     ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
 
-    @Before
+    @BeforeEach
     public void setUp() {
+        MockitoAnnotations.initMocks(this);
         logger = getLogger();
     }
 
